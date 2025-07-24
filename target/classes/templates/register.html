@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title> Registrazione </title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+	<link href="/css/stileRegistrazione.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div class="main-block">
+		<h1>Creazione Account</h1>
+
+		<form th:action="@{/register}" th:object="${credentials}" method="POST">
+
+			<!-- Scegli il ruolo -->
+			<div class="account-type">
+				<input type="radio" th:field="*{role}" value="DEFAULT" id="radioOne" name="DEFAULT" checked />
+				<label for="radioOne" class="radio">Utente</label>
+				<input type="radio" th:field="*{role}" value="ADMIN" id="radioTwo" name="PROVIDER" checked />
+				<label for="radioTwo" class="radio">Admin</label>
+				</label>
+			</div>
+
+			<hr />
+
+			<!-- Dati personali (nested in Credentials.user) -->
+			<label id="icon" for="name"><i class="fas fa-user"></i></label>
+			<input type="text" id="name" name="name" placeholder="Nome" th:field="*{user.name}" required />
+
+			<label id="icon" for="name"><i class="fas fa-unlock-alt"></i></label>
+			<input type="text" id="surname" name="surname" placeholder="Cognome" th:field="*{user.surname}" required />
+
+			<label id="icon" for="name"><i class="fas fa-envelope"></i></label>
+			<input type="text" name="email" id="email" placeholder="Email" th:field="*{user.email}" required />
+
+			<hr />
+
+			<!-- Credenziali di accesso -->
+			<label id="icon" for="name"><i class="fas fa-envelope"></i></label>
+			<input type="text" id="username" name="username" placeholder="Username" th:field="*{username}" required />
+
+			<label id="icon" for="name"><i class="fas fa-unlock-alt"></i></label>
+			<input type="password" id="password" name="password" placeholder="Password" th:field="*{password}"
+				required />
+
+			<!-- Genere 
+			<div class="gender">
+				<input type="radio" th:field="*{gender}" value="uomo" id="male" name="gender" checked />
+				<label for="male" class="radio"> Uomo</label>
+				<input type="radio" th:field="*{gender}" value="donna" id="female" name="gender" />
+				<label for="female" class="radio"> Donna</label>
+				<input type="radio" th:field="*{gender}" value="altro" id="altro" name="gender" />
+				<label for="altro" class="radio">Altro</label>
+			</div>
+			-->
+			<hr />
+
+			<!-- Privacy -->
+			<div class="btn-block">
+				<p>
+					Creando un account accetti le Condizioni d' uso e vendita. Consulta la nostra Informativa sulla
+					privacy,
+					l'Informativa sui cookie e l'Informativa sulla pubblicit&aacute; definita in base agli interessi.
+					<a href="#">Privacy Policy</a>.
+
+				</p>
+				<button type="submit">Conferma</button>
+			</div>
+		</form>
+	</div>
+
+	<script src="https://use.fontawesome.com/releases/v5.4.1/js/all.js"
+		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,320 @@
+ body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+ table {
+ 	width: 100%;
+ 	border-collapse: collapse;
+ 	margin: 20px 0;
+ 	font-size: 18px;
+ 	text-align: left;
+ 	background-color: #fff;
+ 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ 	border-radius: 8px;
+ 	overflow: hidden;
+ }
+
+ th,
+ td {
+ 	padding: 12px;
+ 	border: 1px solid #ddd;
+ }
+
+ th {
+ 	background-color: #f4f4f4;
+ }
+
+ 
+
+ .action-buttons {
+ 	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ 	gap: 10px;
+ 	height: 155px;
+ }
+
+ .action-buttons button {
+ 	padding: 8px 12px;
+ 	border: none;
+ 	border-radius: 4px;
+ 	cursor: pointer;
+ 	font-size: 16px;
+ }
+
+ .edit-button {
+ 	background-color: #007bff;
+ 	color: white;
+ }
+
+ .delete-button {
+ 	background-color: #dc3545;
+ 	color: white;
+ }
+
+ .edit-button:hover {
+ 	background-color: #0056b3;
+ }
+
+ .delete-button:hover {
+ 	background-color: #c82333;
+ }
+
+ a {
+ 	color: whitesmoke;
+ 	text-decoration: none;
+ }
+ 
+ .navbar {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.navbar .nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .auth-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .menu-icon {
+  display: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+/* ------- Search bar corretto ------- */
+.navbar .search-bar form{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* puoi regolare o rimuovere questo margin-left */
+  margin:0;
+}
+
+.navbar .search-bar form input[type="text"],
+.navbar .search-bar form button {
+  height: 40px;             /* stessa altezza */
+  margin: 0;                /* nessun gap aggiuntivo */
+  box-sizing: border-box;   /* padding incluso nell’altezza */
+  
+}
+
+/* campo di testo */
+.navbar .search-bar form input[type="text"]{
+  flex: 1;                  /* riempie lo spazio disponibile */
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-right: none;       /* unisce il bordo con il button */
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+/* pulsante di ricerca */
+.navbar .search-bar form button {
+  padding: 0 15px;
+  border: 1px solid #ccc;
+  border-left: none;        /* unisce il bordo con l’input */
+  border-radius: 0 5px 5px 0;
+  background-color: #ff6347;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.navbar .search-bar form button:hover {
+  background-color: #ff4500;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+@media (max-width: 768px) {
+  .navbar .nav-links,
+  .navbar .auth-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar .menu-icon {
+    display: block;
+  }
+
+  .navbar.responsive .nav-links,
+  .navbar.responsive .auth-links {
+    display: flex;
+  }
+
+  .navbar .search-bar {
+    margin: 10px 0;
+    width: 300px;
+  }
+}
+/* fai in modo che il contenuto della cella sia centrato */
+td.image-cell {
+  text-align: center;      /* orizzontale */
+  vertical-align: middle;  /* verticale */
+}
+
+
+.cta-button {
+  background-color: #ff6347;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+}
+
+.cta-button:hover {
+  background-color: #ff4500;
+}
+
+
+.carousel-vanilla {
+	position: relative;
+	overflow: hidden;
+	max-width: 300px;
+}
+
+.track {
+	display: flex;
+	scroll-snap-type: x mandatory;
+	overflow-x: auto;
+	scroll-behavior: smooth;
+}
+
+.slide {
+	flex: 0 0 100%;
+	scroll-snap-align: start;
+}
+
+.slide img {
+	width: 100%;
+	display: block;
+ 	max-width: 100%;
+ 	max-height: 150px;
+}
+
+.carousel-vanilla button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(0, 0, 0, 0.4);
+	color: white;
+	border: none;
+	padding: 0.5rem;
+	cursor: pointer;
+}
+
+.carousel-vanilla .prev {
+	left: 0.5rem;
+}
+
+.carousel-vanilla .next {
+	right: 0.5rem;
+}
+
+/* Pulsanti nascosti di default */
+.carousel-vanilla button {
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+/* Appaiono al hover del carosello */
+.carousel-vanilla:hover button {
+	opacity: 1;
+}
+
+/* Posizionamento frecce */
+.carousel-vanilla .prev {
+	left: 0.5rem;
+}
+
+.carousel-vanilla .next {
+	right: 0.5rem;
+}
+
+/* Nasconde la scrollbar orizzontale ma lascia il track scrollabile */
+.carousel-vanilla .track {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE, Edge */
+  -ms-overflow-style: none;
+}
+
+/* Chrome, Safari e Opera */
+.carousel-vanilla .track::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* 1) Centra il carosello nella cella (già hai td.image-cell):
+   se serve, aggiungi anche qui per sicurezza */
+td.image-cell .carousel-vanilla {
+  margin: 0 auto;
+}
+
+/* 2) Fai sì che ogni slide centri il contenuto */
+.carousel-vanilla .slide {
+  display: flex;
+  justify-content: center; /* orizzontale */
+  align-items: center;     /* verticale */
+}
+
+/* 3) Rimuovi width:100% e lascia che l’immagine usi solo max-dimensoni */
+.carousel-vanilla .slide img {
+  width: auto;             /* non forzare larghezza */
+  height: auto;            /* non forzare altezza */
+  max-width: 100%;         /* al massimo riempie la slide in orizzontale */
+  max-height: 150px;       /* limiti l’altezza */
+  margin: auto;            /* centraggi residuo, se serve */
+  object-fit: contain;     /* o cover se preferisci ritagliare */
+}
+

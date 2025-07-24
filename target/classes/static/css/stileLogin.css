@@ -1,0 +1,162 @@
+ @keyframes fadeIn {
+ 	from {
+ 		opacity: 0;
+ 	}
+
+ 	to {
+ 		opacity: 1;
+ 	}
+ }
+
+ @keyframes slideIn {
+ 	from {
+ 		transform: translateY(-100%);
+ 	}
+
+ 	to {
+ 		transform: translateY(0);
+ 	}
+ }
+
+ body {
+ 	background: url("/uploads/media/default/0001/01/49bff73f282c2c21f3341f1fe457fe35337b1792.jpeg") no-repeat center;
+ 	backdrop-filter: cover;
+ 	font-family: Roboto, Arial, sans-serif;
+ 	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ 	height: 100vh;
+ 	margin: 0;
+ 	animation: fadeIn 1s ease-in-out;
+ }
+
+ .main-block {
+ 	display: flex;
+ 	width: 800px;
+ 	padding: 0;
+ 	border-radius: 5px;
+ 	box-shadow: 1px 1px 8px 0px #666;
+ 	background: #fff;
+ 	animation: slideIn 0.5s ease-in-out;
+ }
+
+ .block-item {
+ 	width: 50%;
+ 	padding: 20px;
+ 	height: 100%;
+ }
+
+ .block-item.left {
+ 	border-right: 1px solid #aaa;
+ }
+
+ .block-item.right {
+ 	display: flex;
+ 	flex-direction: column;
+ 	align-items: center;
+ 	justify-content: center;
+ }
+
+ h1 {
+ 	margin: 0 0 10px 0;
+ 	font-weight: 400;
+ }
+
+ form {
+ 	padding: 0;
+ 	margin: 10px;
+ 	outline: none;
+ 	font-size: 14px;
+ 	color: #666;
+ }
+
+ label#icon {
+ 	margin: 0;
+ 	width: 49px;
+ 	height: 26px;
+ 	border-radius: 5px 0 0 5px;
+ 	bottom: -4px;
+ 	position: relative;
+ 	display: inline-block;
+ 	padding: 7px 15px;
+ 	box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+ 	background: #1c87c9;
+ 	color: #fff;
+ 	text-align: center;
+ }
+
+ input[type=text],
+ input[type=password] {
+ 	width: 250px;
+ 	height: 36px;
+ 	margin: 12px -3px -2px -5px;
+ 	padding-left: 10px;
+ 	border-radius: 0 5px 5px 0;
+ 	border: solid 1px #cbc9c9;
+ 	box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+ 	background: #fff;
+ }
+
+ input[type=password] {
+ 	margin-bottom: 15px;
+ }
+
+ button {
+ 	width: 100%;
+ 	padding: 10px 0;
+ 	margin: 10px auto;
+ 	border-radius: 5px;
+ 	border: none;
+ 	background: #1c87c9;
+ 	font-size: 14px;
+ 	font-weight: 600;
+ 	color: #fff;
+ 	transition: background 0.3s ease-in-out;
+ }
+
+ button:hover {
+ 	background: #26a9e0;
+ }
+
+ i {
+ 	width: 50px;
+ 	font-size: 24px;
+ }
+
+
+ .btn {
+ 	display: flex;
+ 	align-items: center;
+ 	width: 45%;
+ 	height: 40px;
+ 	margin: 10px 0;
+ 	padding: 10px;
+ 	outline: none;
+ 	border: 0;
+ 	border-radius: 5px;
+ 	box-shadow: 2px 2px 2px #666;
+ 	background: #e8e8e8;
+ 	color: #fff;
+ 	cursor: pointer;
+ 	transition: transform 0.3s ease-in-out;
+ }
+
+ .btn:hover {
+ 	transform: scale(1.03);
+ }
+
+ .btn span {
+ 	font-size: 16px;
+ }
+
+ .facebook {
+ 	background: #3a589e;
+ }
+
+ .twitter {
+ 	background: #429cd6;
+ }
+
+ .google {
+ 	background: #d34836;
+ }

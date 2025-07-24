@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Login</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+	<link href="/css/stileLogin.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<!--blocco principale-->
+	<div class="main-block">
+		<div class="block-item left">
+			<h1>Accedi:</h1>
+
+			<!--form per effettuare il login con i suoi campi-->
+			<form th:action="@{/login}" method="POST">
+				<label id="icon" for="name">
+					<i class="fas fa-user"></i>
+				</label>
+				<input type="text" name="username" id="username" placeholder="Username" required />
+
+
+				<label id="icon" for="password">
+					<i class="fas fa-unlock-alt"></i>
+				</label>
+				<input type="password" name="password" id="password" placeholder="Password" required />
+
+				<!--bottone per fare il login-->
+				<button type="submit">Entra</button>
+			</form>
+		</div>
+		<div class="block-item right">
+			<button class="btn facebook" data-provider="facebook"><i
+					class="fab fa-facebook-f"></i><span>Facebook</span></button>
+			<button class="btn twitter" data-provider="twitter"><i class="fab fa-twitter"></i><span>X</span></button>
+			<button class="btn google" data-provider="google"><i class="fab fa-google"></i><span>Google</span></button>
+		</div>
+	</div>
+</body>
+
+</html>

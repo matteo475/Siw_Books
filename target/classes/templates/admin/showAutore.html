@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tabella Autori</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="/css/stileShowAutore.css" rel="stylesheet" type="text/css">
+	<link href="/css/stileIndex.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<!--il div che segue è per la barra di navigazione in alto-->
+	<div class="navbar" id="navbar">
+		<div class="nav-links">
+			<a href="/">Home</a>
+			<a href="#prodotti">Prodotti</a>
+			<a href="#categorie">Categorie</a>
+			<a href="#contatti">Contatti</a>
+
+			<!--rappresenta il menù a tendina -->
+			<div class="dropdown">
+				<a href="javascript:void(0)">Altro</a>
+				<div class="dropdown-content">
+					<a href="#link1">Link 1</a>
+					<a href="#link2">Link 2</a>
+					<a href="#link3">Link 3</a>
+				</div>
+			</div>
+		</div>
+
+		<!--barra di ricerca-->
+		<div class="search-bar">
+			<input type="text" placeholder="Cerca...">
+			<button type="button">Cerca</button>
+		</div>
+
+		<div th:if="${userDetails}" class="auth-links" )>
+			<span th:text="${userDetails.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+
+		<span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+	</div>
+
+
+	<!-- PAGINA CHE CI MOSTRA I PRODOTTI INSERITI DALL'AZIENDA -->
+	<h1>Qui vediamo le caratteristiche degli Autori</h1>
+
+	<div>
+		&nbsp;&nbsp;<a href="/admin/indexAdmin" class="cta-button">indietro</a>
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Cognome</th>
+				<th>Nazionalita</th>
+				<th>Anno di Nascita</th>
+				<th>Anno della Morte</th>
+				<th>Azioni</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--gli sto dicendo che per ogni autore deve fare il seguente procedimento-->
+			<tr th:each="autore : ${autore}"> <!-- autore riprende quello di model.addAttribute nel 
+															 GetMapping di /admin/autore-->
+				<td th:text="${autore.id}"></td>
+				<td th:text="${autore.nome}"></td>
+				<td th:text="${autore.cognome}"></td>
+				<td th:text="${autore.nazionalita}"></td>
+				<td th:text="${autore.annoNascita}"></td>
+				<td th:text="${autore.annoMorte}"></td>
+
+				<!--
+				<td class="image-cell">
+					<img th:src="@{'/images/' + ${product.imageFileName}}" alt="foto" width="150">
+				</td>
+				-->
+
+				<td class="action-buttons">
+					<!-- link per modificare l'autore -->
+					<button class="edit-button">
+						<a th:href="@{/admin/editAutore(id=${autore.id})}">
+							<i class="fas fa-edit"></i> Edit</a>
+					</button>
+
+					<!-- link per cancellare l'autore -->
+					<button class="delete-button">
+						<a th:href="@{/admin/deleteAutore(id=${autore.id})}" onclick="return confirm('Sei Sicuro?')">
+							<i class="fas fa-trash"></i> Delete</a>
+					</button>
+				</td>
+			</tr>
+			<!-- Aggiungi altre righe se necessario -->
+		</tbody>
+	</table>
+</body>
+
+</html>

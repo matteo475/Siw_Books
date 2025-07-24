@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title th:text="${libro.titolo}">Dettaglio Libro</title>
+	<link href="/css/dettaglioLibro.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+	<!--il div che segue è per la barra di navigazione in alto-->
+	<div class="navbar" id="navbar">
+		<div class="nav-links">
+			<a href="/">Home</a>
+			<a href="#prodotti">Prodotti</a>
+			<a href="#categorie">Categorie</a>
+			<a href="#contatti">Contatti</a>
+
+			<!--rappresenta il menù a tendina -->
+			<div class="dropdown">
+				<a href="javascript:void(0)">Altro</a>
+				<div class="dropdown-content">
+					<a href="#link1">Link 1</a>
+					<a href="#link2">Link 2</a>
+					<a href="#link3">Link 3</a>
+				</div>
+			</div>
+		</div>
+		<!--barra di ricerca-->
+		<div class="search-bar">
+			<form th:action="@{/ricercaHome}" method="post" class="search-bar__form">
+				<input type="text" th:value="${keyword}" placeholder="Cerca...">
+				<button type="submit">Cerca</button>
+			</form>
+		</div>
+
+
+
+		<div th:if="${userDetails}" class="auth-links">
+			<span th:text="${userDetails.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${userDetails}" class="auth-links">
+			<a href="/login">Login</a>
+			<a href="/register">Registrazione</a>
+		</div>
+
+		<span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+	</div>
+
+
+	<div class="products">
+		<h2 th:text="'Scheda libro: ' + ${libro.titolo}" style="text-align: center;">Titolo Libro</h2>
+
+		<section id="scheda-libro" class="products">
+			<div class="detail-container">
+				<!-- colonna immagine -->
+				<div class="carousel-vanilla">
+					<div class="track">
+						<div th:each="img : ${libro.immagini}" class="slide">
+							<img th:src="@{/libro/immagine/{id}(id=${img.id})}" th:alt="'Img ' + ${img.id}" />
+						</div>
+					</div>
+					<button class="prev">&lt;</button>
+					<button class="next">&gt;</button>
+				</div>
+
+				<!-- colonna info -->
+				<div class="book-info">
+					<p><strong>Anno di pubblicazione:</strong>
+						<span th:text="${libro.annoPubblicazione}">2025</span>
+					</p>
+					<p><strong>Genere:</strong>
+						<span th:text="${libro.genere}">2025</span>
+					</p>
+
+					<p>
+						<strong>Trama:</strong>
+						<span th:text="${libro.trama}"></span>
+					</p>
+				</div>
+			</div>
+		</section>
+
+	</div>
+
+
+	<script>
+		document.querySelectorAll('.carousel-vanilla').forEach(carousel => {
+			const track = carousel.querySelector('.track');
+			const prevBtn = carousel.querySelector('.prev');
+			const nextBtn = carousel.querySelector('.next');
+			const intervalMs = 3000; // intervallo in ms
+
+			// Handler prev/next
+			prevBtn.onclick = () =>
+				track.scrollBy({left: -track.offsetWidth, behavior: 'smooth'});
+			nextBtn.onclick = () =>
+				track.scrollBy({left: track.offsetWidth, behavior: 'smooth'});
+
+			// Funzione di auto-scroll
+			function startAutoScroll() {
+				return setInterval(() => {
+					const endReached = track.scrollLeft + track.offsetWidth >= track.scrollWidth;
+					track.scrollTo({
+						left: endReached ? 0 : track.scrollLeft + track.offsetWidth,
+						behavior: 'smooth'
+					});
+				}, intervalMs);
+			}
+
+			let autoScroll = startAutoScroll();
+
+			// Pausa e riprendi al passaggio del mouse
+			carousel.addEventListener('mouseenter', () => clearInterval(autoScroll));
+			carousel.addEventListener('mouseleave', () => autoScroll = startAutoScroll());
+		});
+	</script>
+
+
+	<!-- Sezione Autori -->
+	<div class="products" id="autori">
+		<h2>Autori</h2>
+		<br>
+		<ul class="product-list">
+			<li th:each="aut : ${libro.autori}" class="product-item">
+				<a th:href="@{/autore/{id}(id=${aut.id})}" th:text="${aut.nome} + ' ' + ${aut.cognome}">
+					Nome Cognome
+				</a>
+			</li>
+			<!--
+			<li th:each="aut : ${libro.autori}" class="product-item">
+				  <span th:text="${aut.nome} + ' ' + ${aut.cognome}">Nome Cognome</span>
+			</li>
+			<li th:if="${#lists.isEmpty(libro.autori)}">
+				<p>Nessun autore associato.</p>
+			</li>-->
+		</ul>
+	</div>
+
+	<!-- Sezione recensioni -->
+	<div class="products" id="recensioni">
+		<h2>Recensioni</h2>
+		<br>
+		<ul class="product-list">
+			<li th:each="rec : ${libro.recensioni}" class="product-item">
+				<p th:text="${rec.testo}">Testo recensione</p>
+				<p>Valutazione :
+					<span th:text="${rec.valutazione}">2025</span>
+				</p>
+				<small th:text="${rec.getUser().getName()}">Nome Utente</small>
+				<small th:text="${#temporals.format(rec.dataCreazione, 'dd/MM/yyyy HH:mm')}">Data</small>
+
+				<form th:action="@{/libro/{libroId}/recensione/{recensioneId}/delete(libroId=${libro.id}, recensioneId=${rec.id})}"
+					method="POST" onsubmit="return confirm('Eliminare questa recensione?');" style="display:inline">
+					<div th:if="${userDetails}">
+						<button th:if="${userDetails.getUsername() == rec.getUser().getName() or userDetails.authorities.?[authority == 'ADMIN'].size>0 }" type="submit"
+							class="delete-button">
+							<i class="fas fa-trash"></i> Elimina
+						</button>
+					</div>
+
+				</form>
+			</li>
+			<li th:if="${#lists.isEmpty(libro.recensioni)}">
+				<p>Nessuna recensione ancora.</p>
+			</li>
+		</ul>
+	</div>
+
+
+	<!-- Form recensione -->
+	<div class="contact" th:if="${userDetails}" )>
+		<h2>Lascia una recensione</h2>
+		<form th:action="@{/libro/{id}/recensione(id=${libro.id})}" th:object="${nuovaRecensione}" method="post">
+
+			<label for="testo">Testo</label>
+			<textarea id="testo" th:field="*{testo}" rows="4"></textarea>
+			<div th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}">Errore testo</div>
+
+			<label for="valutazione">Valutazione</label>
+			<select id="valutazione" th:field="*{valutazione}">
+				<option th:each="v : ${#numbers.sequence(1,5)}" th:value="${v}" th:text="${v}">1</option>
+			</select>
+			<div th:if="${#fields.hasErrors('valutazione')}" th:errors="*{valutazione}">Errore valutazione</div>
+
+			<button type="submit">Invia recensione</button>
+		</form>
+	</div>
+
+
+
+</body>
+
+</html>

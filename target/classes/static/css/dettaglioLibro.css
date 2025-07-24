@@ -1,0 +1,585 @@
+/*───────────────────────────────────────────────────────────────────────────  
+   Root Variables & Reset  
+───────────────────────────────────────────────────────────────────────────*/
+:root {
+	--bg-light: #f9f9f9;
+	--text-dark: #333;
+	--primary: #ff6347;
+	--primary-hover: #ff4500;
+	--card-bg: #fff;
+	--card-shadow: rgba(0, 0, 0, 0.1);
+	--radius: 0.5rem;
+	--gap: 1rem;
+	--transition: 0.2s ease;
+	--font-base: 'Arial', sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+/*───────────────────────────────────────────────────────────────────────────  
+   Base Styles  
+───────────────────────────────────────────────────────────────────────────*/
+body {
+	font-family: var(--font-base);
+	background-color: var(--bg-light);
+	color: var(--text-dark);
+	line-height: 1.6;
+}
+
+h2 {
+	color: #2c3e50;
+	border-bottom: 2px solid #3498db;
+	padding-bottom: 0.3em;
+	margin-top: 1;
+}
+
+h3 {
+	margin: 0.5em 0 0.2em;
+	color: #34495e;
+}
+
+small {
+	color: #888;
+	font-size: 0.9em;
+}
+
+/*───────────────────────────────────────────────────────────────────────────  
+   Navbar  
+───────────────────────────────────────────────────────────────────────────*/
+
+.navbar {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.navbar .nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .auth-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .menu-icon {
+  display: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+/* ------- Search bar corretto ------- */
+.navbar .search-bar form{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* puoi regolare o rimuovere questo margin-left */
+  margin:0;
+}
+
+.navbar .search-bar form input[type="text"],
+.navbar .search-bar form button {
+  height: 40px;             /* stessa altezza */
+  margin: 0;                /* nessun gap aggiuntivo */
+  box-sizing: border-box;   /* padding incluso nell’altezza */
+  
+}
+
+/* campo di testo */
+.navbar .search-bar form input[type="text"]{
+  flex: 1;                  /* riempie lo spazio disponibile */
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-right: none;       /* unisce il bordo con il button */
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+/* pulsante di ricerca */
+.navbar .search-bar form button {
+  padding: 0 15px;
+  border: 1px solid #ccc;
+  border-left: none;        /* unisce il bordo con l’input */
+  border-radius: 0 5px 5px 0;
+  background-color: #ff6347;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.navbar .search-bar form button:hover {
+  background-color: #ff4500;
+}
+
+/*
+.navbar {
+	background-color: #333;
+	color: white;
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.navbar a {
+	color: white;
+	text-decoration: none;
+	margin: 0 10px;
+	transition: color var(--transition);
+}
+
+.navbar a:hover {
+	color: var(--primary);
+}
+
+.navbar .nav-links,
+.navbar .auth-links {
+	display: flex;
+	align-items: center;
+}
+
+.navbar .menu-icon {
+	display: none;
+	font-size: 1.5em;
+	cursor: pointer;
+}*/
+
+/*── Search Bar in Navbar ─────────────────────────────────────────────────*/
+/*
+.navbar .search-bar form {
+	display: flex;
+	align-items: center;
+	margin: 0;
+}
+
+.navbar .search-bar form input[type="text"],
+.navbar .search-bar form button {
+	height: 40px;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.navbar .search-bar form input[type="text"] {
+	flex: 1;
+	padding: 0 10px;
+	border: 1px solid #ccc;
+	border-right: none;
+	border-radius: 5px 0 0 5px;
+	outline: none;
+}
+
+.navbar .search-bar form button {
+	padding: 0 15px;
+	border: 1px solid #ccc;
+	border-left: none;
+	border-radius: 0 5px 5px 0;
+	background-color: var(--primary);
+	color: #fff;
+	cursor: pointer;
+	transition: background-color var(--transition);
+}
+
+.navbar .search-bar form button:hover {
+	background-color: var(--primary-hover);
+}*/
+
+
+
+/* Stile specifico per il form di ricerca */
+
+/*
+.search-bar__form {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar__form input {
+  flex: 1;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.search-bar__form button {
+  height: 40px;
+  padding: 0 15px;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+  background-color: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.search-bar__form button:hover {
+  background-color: var(--primary-hover);
+}*/
+
+/*── Dropdown ──────────────────────────────────────────────────────────────*/
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+/*───────────────────────────────────────────────────────────────────────────  
+   Main & Sections  
+───────────────────────────────────────────────────────────────────────────*/
+main {
+	padding: calc(var(--gap) * 2);
+}
+
+.products,
+.contact {
+	max-width: 900px;
+	margin: 2em auto;
+	padding: 1.5em;
+	background-color: var(--card-bg);
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/*───────────────────────────────────────────────────────────────────────────  
+   Product & Review Grid  
+───────────────────────────────────────────────────────────────────────────*/
+.product-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-gap: var(--gap);
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+/* Stack reviews vertically */
+#recensioni .product-list {
+	grid-template-columns: 1fr;
+}
+
+.product-item {
+	background-color: var(--card-bg);
+	border-radius: var(--radius);
+	box-shadow: 0 2px 8px var(--card-shadow);
+	padding: var(--gap);
+	display: flex;
+	flex-direction: column;
+	transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.product-item:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 4px 12px var(--card-shadow);
+}
+
+.product-item img {
+	width: 100%;
+	max-width: 300px;
+	height: auto;
+	border-radius: 4px;
+	margin-bottom: var(--gap);
+}
+
+.product-item p {
+	margin: 0.3em 0;
+}
+
+/*───────────────────────────────────────────────────────────────────────────  
+   Forms & Buttons  
+───────────────────────────────────────────────────────────────────────────*/
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+.inline-form {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+}
+
+.contact form {
+	max-width: 500px;
+	margin: 0 auto;
+	display: grid;
+	gap: var(--gap);
+}
+
+.contact label {
+	margin-top: 1em;
+	font-weight: bold;
+}
+
+form input,
+form textarea,
+.contact textarea,
+.contact select {
+	width: 100%;
+	padding: 0.6em;
+	border: 1px solid #ccc;
+	border-radius: var(--radius);
+	font-family: inherit;
+	font-size: 1em;
+}
+
+.contact button {
+	margin-top: 1.5em;
+	padding: 0.7em 1.2em;
+	background-color: #3498db;
+	color: white;
+	border: none;
+	border-radius: var(--radius);
+	font-size: 1em;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.contact button:hover {
+	background-color: #2980b9;
+}
+
+button {
+	font: inherit;
+	border: none;
+	border-radius: var(--radius);
+	cursor: pointer;
+}
+
+.delete-button {
+	background: none;
+	color: #c00;
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	transition: color var(--transition);
+}
+
+.delete-button:hover {
+	color: #900;
+}
+
+/*───────────────────────────────────────────────────────────────────────────  
+   Book Detail Side-by-Side Layout  
+───────────────────────────────────────────────────────────────────────────*/
+#scheda-libro .detail-container {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--gap);
+	margin: 2rem auto;
+	max-width: 900px;
+	background: var(--card-bg);
+	padding: var(--gap);
+	border-radius: var(--radius);
+	box-shadow: 0 2px 8px var(--card-shadow);
+}
+
+#scheda-libro .book-image {
+	flex: 0 0 300px;
+}
+
+#scheda-libro .book-image img {
+	width: 100%;
+	height: auto;
+	border-radius: var(--radius);
+}
+
+#scheda-libro .book-info {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+#scheda-libro .book-info h2 {
+	margin-top: 0;
+}
+
+/*───────────────────────────────────────────────────────────────────────────  
+   Responsive Breakpoints  
+───────────────────────────────────────────────────────────────────────────*/
+@media (max-width: 768px) {
+	.product-list {
+		grid-template-columns: 1fr;
+	}
+
+	.navbar .nav-links,
+	.navbar .auth-links {
+		display: none;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.navbar .menu-icon {
+		display: block;
+	}
+
+	.navbar.responsive .nav-links,
+	.navbar.responsive .auth-links {
+		display: flex;
+	}
+
+	.navbar .search-bar {
+		margin: 10px 0;
+		width: 300px;
+	}
+
+	#scheda-libro .detail-container {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	#scheda-libro .book-image {
+		width: 80%;
+		max-width: 300px;
+	}
+
+	#scheda-libro .book-info {
+		width: 100%;
+	}
+}
+
+/* Disattiva lo sfondo e ombra sul wrapper .products di #scheda-libro */
+#scheda-libro.products {
+	background: transparent;
+	box-shadow: none;
+	padding: 0;
+	margin: 0;
+	/* o regola a tuo piacere */
+}
+
+
+/***/
+.carousel-vanilla {
+	position: relative;
+	overflow: hidden;
+	max-width: 300px;
+}
+
+.track {
+	display: flex;
+	scroll-snap-type: x mandatory;
+	overflow-x: auto;
+	scroll-behavior: smooth;
+}
+
+.slide {
+	flex: 0 0 100%;
+	scroll-snap-align: start;
+}
+
+.slide img {
+	width: 100%;
+	display: block;
+}
+
+.carousel-vanilla button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(0, 0, 0, 0.4);
+	color: white;
+	border: none;
+	padding: 0.5rem;
+	cursor: pointer;
+}
+
+.carousel-vanilla .prev {
+	left: 0.5rem;
+}
+
+.carousel-vanilla .next {
+	right: 0.5rem;
+}
+
+/* Pulsanti nascosti di default */
+.carousel-vanilla button {
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+/* Appaiono al hover del carosello */
+.carousel-vanilla:hover button {
+	opacity: 1;
+}
+
+/* Posizionamento frecce */
+.carousel-vanilla .prev {
+	left: 0.5rem;
+}
+
+.carousel-vanilla .next {
+	right: 0.5rem;
+}
+
+/* Nasconde la scrollbar orizzontale ma lascia il track scrollabile */
+.carousel-vanilla .track {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE, Edge */
+  -ms-overflow-style: none;
+}
+
+/* Chrome, Safari e Opera */
+.carousel-vanilla .track::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;      /* elimina la linea sotto */
+  color: black;             /* imposta il colore normale */
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #ff4500;             /* colore al passaggio del mouse */
+  /* text-decoration: underline;  se vuoi riaggiungere l’underline in hover */
+}
+
+
+
+
+

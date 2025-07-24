@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tabella Libri</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="/css/stileShowLibro.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<!--il div che segue è per la barra di navigazione in alto-->
+	<div class="navbar" id="navbar">
+		<div class="nav-links">
+			<a href="/">Home</a>
+			<a href="#prodotti">Prodotti</a>
+			<a href="#categorie">Categorie</a>
+			<a href="#contatti">Contatti</a>
+
+			<!--rappresenta il menù a tendina -->
+			<div class="dropdown">
+				<a href="javascript:void(0)">Altro</a>
+				<div class="dropdown-content">
+					<a href="#link1">Link 1</a>
+					<a href="#link2">Link 2</a>
+					<a href="#link3">Link 3</a>
+				</div>
+			</div>
+		</div>
+
+		<!--barra di ricerca-->
+		<div class="search-bar">
+			<form th:action="@{/ricercaHome}" method="post" class="search-bar__form">
+				<input type="text" th:value="${keyword}" placeholder="Cerca...">
+				<button type="submit">Cerca</button>
+			</form>
+		</div>
+
+		<div th:if="${userDetails}" class="auth-links">
+			<span th:text="${userDetails.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+
+		<span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+	</div>
+
+
+	<!-- PAGINA CHE CI MOSTRA I PRODOTTI INSERITI DALL'AZIENDA -->
+	<h1>Qui vediamo le caratteristiche dei Libri</h1>
+
+	<div>
+		&nbsp;&nbsp;<a href="/admin/indexAdmin" class="cta-button">indietro</a>
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Titolo</th>
+				<th>Anno di Pubblicazione</th>
+				<th>Immagine Caricata</th>
+				<th>Azioni</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--gli sto dicendo che per ogni prodotto deve fare il seguente procedimento-->
+			<tr th:each="libro : ${libro}"> <!-- products riprende quello di model.addAttribute nel 
+															 getmapping di /company/product-->
+				<td th:text="${libro.id}"></td>
+				<td th:text="${libro.titolo}"></td>
+				<td th:text="${libro.annoPubblicazione}"></td>
+
+				<td class="image-cell">
+					<div class="carousel-vanilla">
+						<div class="track" th:if="${libro.immagini != null}">
+							<div th:each="img : ${libro.immagini}" class="slide">
+								<img th:src="@{/libro/immagine/{id}(id=${img.id})}" alt="Immagine del libro" />
+							</div>
+						</div>
+						<button class="prev">&lt;</button>
+						<button class="next">&gt;</button>
+					</div>
+				</td>
+
+
+
+
+				<td class="action-buttons">
+					<!-- link per modificare l'autore -->
+					<button class="edit-button">
+						<a th:href="@{/admin/editLibro(id=${libro.id})}">
+							<i class="fas fa-edit"></i> Edit</a>
+					</button>
+
+					<!-- link per cancellare l'autore -->
+					<button class="delete-button">
+						<a th:href="@{/admin/deleteLibro(id=${libro.id})}" onclick="return confirm('Sei Sicuro?')">
+							<i class="fas fa-trash"></i> Delete</a>
+					</button>
+				</td>
+			</tr>
+			<!-- Aggiungi altre righe se necessario -->
+		</tbody>
+	</table>
+	<script>
+		document.querySelectorAll('.carousel-vanilla').forEach(carousel => {
+			const track = carousel.querySelector('.track');
+			const prev = carousel.querySelector('.prev');
+			const next = carousel.querySelector('.next');
+			const width = carousel.clientWidth;
+
+			prev.addEventListener('click', () => {
+				track.scrollBy({left: -width, behavior: 'smooth'});
+			});
+			next.addEventListener('click', () => {
+				track.scrollBy({left: width, behavior: 'smooth'});
+			});
+		});
+	</script>
+
+</body>
+
+</html>

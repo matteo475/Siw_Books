@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Aggiungi Libro</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="/css/StileInserimento.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div class="container">
+		<h1>Inserisci Libro</h1>
+
+		<!-- FORM DI VALIDAZIONE DEL LIBRO-->
+		<form th:action="@{/admin/creaLibro}" method="POST" th:object="${libroDTO}" enctype="multipart/form-data">
+			<div>
+				<label for="titolo">Titolo Libro:</label>
+				<input type="text" id="titolo" name="titolo" th:field="${libroDTO.titolo}" />
+				<div th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}">Errore Titolo</div>
+
+
+			</div>
+			<div>
+				<label for="annoPubblicazione">Anno di pubblicazione:</label>
+				<input type="date" id="annoPubblicazione" name="annoPubblicazione"
+					th:field="${libroDTO.annoPubblicazione}" />
+				<div th:if="${#fields.hasErrors('annoPubblicazione')}" th:errors="*{annoPubblicazione}">Errore
+					Pubblicazione</div>
+
+			</div>
+
+			<!-- DEVO INSERIRE I VARI AUTORI CHE SONO GIA STATI INSERITI IN PRECEDENZA-->
+			<div>
+				<label for="autori">Autori:</label><br>
+				<select id="autori" th:field="*{autoreId}" multiple="multiple" size="5">
+					<option th:each="a : ${allAutori}" th:value="${a.id}" th:text="${a.nome} + ' ' + ${a.cognome}">
+						Autore
+					</option>
+				</select>
+				<div class="error" th:if="${#fields.hasErrors('autoreId')}" th:errors="*{autoreId}">Errore</div>
+			</div>
+
+			<!-- 	INSERIMENTO AUTORI TRAMITE CHECKBOX			
+			<div th:each="a : ${allAutori}">
+				<label>
+					<input type="checkbox" th:field="*{autoreId}" th:value="${a.id}" />
+					<span th:text="${a.nome}"></span>
+				</label>
+			</div>
+			-->
+
+			<!-- SEZIONE PER LA LISTA DEI GENERI LETTERARI -->
+			<div>
+				<label for="genere">Genere:</label>
+				<select id="genere" name="genere " th:field="${libroDTO.genere}">
+					<option value="top">Top</option>
+					<option value="fantasy">Fantasy</option>
+					<option value="horror">Horror</option>
+					<option value="giallo">Giallo</option>
+					<option value="drama">Drama</option>
+					<option value="romanzo">Romanzo</option>
+					<option value="narrativa">Narrativa</option>					
+					<option value="manga">Manga</option>
+				</select>
+			</div>
+
+			<!-- SEZIONE PER LA TRAMA-->
+			<span for="trama">Trama:</span>
+			<div>
+
+				<textarea id="trama" name="trama" rows="4" placeholder="Inserisci la trama del libro....."
+					maxlength="500" oninput="updateCharCounter()" th:field="${libroDTO.trama}"></textarea>
+				<div class="error" th:if="${#fields.hasErrors('trama')}" th:errors="*{trama}">Errore</div>
+				<div id="charCounter" class="char-counter">0 / 500 caratteri</div>
+			</div>
+
+
+			<!-- INSERIMENTO IMMAGINI -->
+			<div>
+				<label for"immagine">Immagine</label>
+				<input type="file" th:field="${libroDTO.files}" name="immagine" multiple="multiple" accept="image/*"
+					onchange="previewImage()" required id="immagine" />
+				<div th:if="${#fields.hasErrors('files')}" th:errors="*{files}">Errore Immagine</div>
+
+				<img id="imagePreview" class="image-preview" alt="Anteprima Immagine">
+			</div>
+			<br>
+			<div>
+				<button type="submit">Inserisci Libro</button>
+			</div>
+		</form>
+	</div>
+	<script>
+		function updateCharCounter() {
+			const textarea = document.getElementById('trama');
+			const counter = document.getElementById('charCounter');
+			counter.textContent = `${textarea.value.length} / 500 caratteri`;
+		}
+
+		function previewImage() {
+			const fileInput = document.getElementById('immagine');
+			const preview = document.getElementById('imagePreview');
+			const file = fileInput.files[0];
+			const reader = new FileReader();
+
+			reader.onloadend = function () {
+				preview.src = reader.result;
+				preview.style.display = 'block';
+			}
+
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+				preview.src = '';
+				preview.style.display = 'none';
+			}
+		}
+	</script>
+</body>
+</html>

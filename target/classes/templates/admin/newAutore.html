@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Aggiungi Autore</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="/css/StileInserimento.css" rel="stylesheet" type="text/css">
+
+	<script>
+		function updateCharCounter() {
+			const textarea = document.getElementById('description');
+			const counter = document.getElementById('charCounter');
+			counter.textContent = `${textarea.value.length} / 500 caratteri`;
+		}
+
+		function previewImage() {
+			const fileInput = document.getElementById('immagine');
+			const preview = document.getElementById('imagePreview');
+			const file = fileInput.files[0];
+			const reader = new FileReader();
+
+			reader.onloadend = function () {
+				preview.src = reader.result;
+				preview.style.display = 'block';
+			}
+
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+				preview.src = '';
+				preview.style.display = 'none';
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Inserisci Autore</h1>
+
+		<!-- FORM DI VALIDAZIONE DEL PRODOTTO-->
+		<form th:action="@{/admin/creaAutore}" method="POST" th:object="${autoreDTO}" enctype="multipart/form-data">
+			<div>
+				<label for="nome">Nome Autore:</label>
+				<input type="text" id="nome" name="nome" th:field="${autoreDTO.nome}" />
+			</div>
+			<div>
+				<label for="cognome">Cognome:</label>
+				<input type="text" id="cognome" name="cognome" th:field="${autoreDTO.cognome}" />
+			</div>
+			<div>
+				<label for="nazionalita">Nazionalita:</label>
+				<input type="text" id="nazionalita" name="nazionalita" th:field="${autoreDTO.nazionalita}">
+			</div>
+			<div>
+				<label for="annoNascita">Anno di Nascita:</label>
+				<input type="date" id="annoNascita" name="annoNascita" th:field="${autoreDTO.annoNascita}">
+			</div>
+			<div>
+				<label for="annoMorte">Anno di Morte:</label>
+				<input type="date" id="annoMorte" name="annoMorte" th:field="${autoreDTO.annoMorte}">
+			</div>
+			<div>
+				<label for="biografia">Biografia:</label>
+				<input type="text" id="biografia" name="biografia" th:field="${autoreDTO.biografia}" />
+			</div>
+			<div>
+				<label for="immagine">Immagine</label>
+				<input type="file" th:field="${autoreDTO.files}" multiple="multiple" accept="image/*" name="immagine"
+					id="immagine" onchange="previewImage()" />
+				<div th:if="${#fields.hasErrors('files')}" th:errors="*{files}">Errore Immagine</div>
+				<img id="imagePreview" class="image-preview" alt="Anteprima Immagine">
+
+			</div><br>
+			<div>
+				<button type="submit">Inserisci Autore</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Modifica Libro</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="/css/StileInserimento.css" rel="stylesheet" type="text/css">
+
+	<script>
+		function updateCharCounter() {
+			const textarea = document.getElementById('description');
+			const counter = document.getElementById('charCounter');
+			counter.textContent = `${textarea.value.length} / 500 caratteri`;
+		}
+		function previewImage() {
+			const fileInput = document.getElementById('imageFile');
+			const preview = document.getElementById('imagePreview');
+			const file = fileInput.files[0];
+			const reader = new FileReader();
+
+			reader.onloadend = function () {
+				preview.src = reader.result;
+				preview.style.display = 'block';
+			}
+
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+				preview.src = '';
+				preview.style.display = 'none';
+			}
+		}
+	</script>
+
+</head>
+
+<body>
+	<div class="container">
+		<h1>Modifica Libro</h1>
+
+		<form th:action="@{/admin/editLibro}" th:object="${libroDTO}" method="post" enctype="multipart/form-data">
+
+			<!-- campo nascosto per l’id -->
+			<input type="hidden" th:field="*{id}" />
+
+			<!-- titolo -->
+			<label for="titolo">Titolo</label>
+			<input type="text" th:field="*{titolo}" id="titolo" />
+
+			<!-- annoPubblicazione -->
+			<label for="anno">Anno</label>
+			<input type="date" th:field="*{annoPubblicazione}" id="anno" />
+
+			<!-- trama -->
+			<label for="trama">Trama</label>
+			<textarea th:field="*{trama}" id="trama"></textarea>
+
+			<!-- genere -->
+			<label for="genere">Genere</label>
+			<input type="text" th:field="*{genere}" id="genere" />
+
+			<!-- autori -->
+			<label for="autori">Autori</label>
+			<select multiple th:field="*{autoreId}" id="autori">
+				<option th:each="a: ${allAutori}" th:value="${a.id}" th:text="${a.cognome} + ' ' + ${a.nome}">
+				</option>
+			</select>
+
+			<button type="submit">Salva modifiche</button>
+		</form>
+
+	</div>
+</body>
+
+</html>
